@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LifeScheduler.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, SuperUser")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -21,7 +21,7 @@ namespace LifeScheduler.Controllers
             this.roleManager = roleManager;
             this.userManager = userManager;
         }
-
+        [Authorize(Roles = "Admin")]
         //Delete User !
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string id)
@@ -50,7 +50,7 @@ namespace LifeScheduler.Controllers
                 return View("ListUsers");
             }
         }
-
+        [Authorize(Roles = "Admin")]
         //Delete Role !
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
@@ -80,11 +80,18 @@ namespace LifeScheduler.Controllers
             }
         }
         //Views Admin Page !
+        [Authorize(Roles = "Admin")]
         public IActionResult Admin()
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin, SuperUser")]
+        //Views SuperUser Page !
+        public IActionResult SuperUser()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult ListUsers()
         {
@@ -93,6 +100,7 @@ namespace LifeScheduler.Controllers
         }
 
         //Edit User GET !
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
@@ -122,6 +130,7 @@ namespace LifeScheduler.Controllers
             return View(model);
         }
         //Edit User POST !
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
@@ -154,12 +163,14 @@ namespace LifeScheduler.Controllers
             }
         }
         // Create Role GET !
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult CreateRole()
         {
             return View();
         }
         // Create Role POST !
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
@@ -185,6 +196,7 @@ namespace LifeScheduler.Controllers
             return View(model);
         }
         // List Roles GET !
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult ListRoles()
         {
@@ -194,6 +206,7 @@ namespace LifeScheduler.Controllers
 
         // Edit Role GET !
         // Role ID is passed from the URL to the action
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> EditRole(string id)
         {
@@ -228,6 +241,7 @@ namespace LifeScheduler.Controllers
         }
         //Edit Role POST !
         // This action responds to HttpPost and receives EditRoleViewModel
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
@@ -259,6 +273,7 @@ namespace LifeScheduler.Controllers
             }
         }
         //Edit Users In Role GET !
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
@@ -297,6 +312,7 @@ namespace LifeScheduler.Controllers
             return View(model);
         }
         //Edit Users In Role POST !
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
