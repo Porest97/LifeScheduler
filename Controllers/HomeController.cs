@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LifeScheduler.Models;
-using LifeScheduler.Models.VireModels;
+using LifeScheduler.Models.ViewModels;
 
 namespace LifeScheduler.Controllers
 {

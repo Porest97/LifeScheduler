@@ -4,14 +4,16 @@ using LifeScheduler.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LifeScheduler.Migrations
 {
     [DbContext(typeof(LSContext))]
-    partial class LSContextModelSnapshot : ModelSnapshot
+    [Migration("20200726092032_Extend_IdentityUser")]
+    partial class Extend_IdentityUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,201 +102,6 @@ namespace LifeScheduler.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.ApplicationUserPerson", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PersonId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("ApplicationUserPerson");
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.Arena", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ArenaName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ArenaNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Arena");
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.DastTest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Approved")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("ArenaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateTimePreformed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SportId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TimeSet1")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TimeSet2")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TimeSet3")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TimeSet4")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TimeTotal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArenaId");
-
-                    b.HasIndex("PersonId");
-
-                    b.HasIndex("SportId");
-
-                    b.ToTable("DastTest");
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ssn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Person");
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.Sport", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("SportName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sport");
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.Workout", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ArenaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateTimeEnded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateTimeStarted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Distance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Duration")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Kcal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SportId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArenaId");
-
-                    b.HasIndex("PersonId");
-
-                    b.HasIndex("SportId");
-
-                    b.ToTable("Workout");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -426,56 +233,6 @@ namespace LifeScheduler.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.ApplicationUserPerson", b =>
-                {
-                    b.HasOne("LifeScheduler.Models.DataModels.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LifeScheduler.Models.DataModels.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.DastTest", b =>
-                {
-                    b.HasOne("LifeScheduler.Models.DataModels.Arena", "Arena")
-                        .WithMany()
-                        .HasForeignKey("ArenaId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LifeScheduler.Models.DataModels.Person", "TestedPerson")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LifeScheduler.Models.DataModels.Sport", "Sport")
-                        .WithMany()
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("LifeScheduler.Models.DataModels.Workout", b =>
-                {
-                    b.HasOne("LifeScheduler.Models.DataModels.Arena", "Arena")
-                        .WithMany()
-                        .HasForeignKey("ArenaId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LifeScheduler.Models.DataModels.Person", "Owner")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LifeScheduler.Models.DataModels.Sport", "Sport")
-                        .WithMany()
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,6 +1,6 @@
 using System;
 
-namespace LifeScheduler.Models.VireModels
+namespace LifeScheduler.Models.ViewModels
 {
     public class ErrorViewModel
     {

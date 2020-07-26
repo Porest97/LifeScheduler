@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LifeScheduler.Data;
+using LifeScheduler.Models.DataModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,7 @@ namespace LifeScheduler
 
             services.AddDbContext<LSContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("LSContext")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<LSContext>();
 
             services.AddMvc(options =>
@@ -42,6 +43,18 @@ namespace LifeScheduler
                 .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddXmlDataContractSerializerFormatters();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CreateRolePolicy",
+                    policy => policy.RequireClaim("Create Role"));
+                options.AddPolicy("DeleteRolePolicy",
+                    policy => policy.RequireClaim("Delete Role"));
+                options.AddPolicy("EditRolePolicy",
+                   policy => policy.RequireClaim("Edit Role"));
+                options.AddPolicy("AdminRolePolicy",
+                   policy => policy.RequireClaim("Admin"));
+            });
 
         }
 
